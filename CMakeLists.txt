@@ -82,6 +82,7 @@ if (ENABLE_TESTS)
   if (PYTHONINTERP_FOUND)
     add_test (NAME test-py
               COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/runner.py)
+    set_tests_properties(test-py PROPERTIES ENVIRONMENT HOEDOWN=./hoedown)
   endif ()
   if (PERL_FOUND)
     add_test (NAME test-pl
