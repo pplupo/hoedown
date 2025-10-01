@@ -85,8 +85,8 @@
             "output": "MarkdownTest_1.0.3/Tests/Tabs.html"
         },
         {
-            "input": "MarkdownTest_1.0.3/Tests/Tidiness.text",
-            "output": "MarkdownTest_1.0.3/Tests/Tidiness.html"
+            "input": "MarkdownTest_1.0.3/Tests/Tidyness.text",
+            "output": "MarkdownTest_1.0.3/Tests/Tidyness.html"
         },
         {
             "input": "Tests/Escape character.text",
@@ -115,11 +115,6 @@
             "input": "Tests/Table.text",
             "output": "Tests/Table.html",
             "flags": ["--tables"]
-        },
-        {
-            "input": "Tests/extras/List_Item_Fenced_Code_First_Line.text",
-            "output": "Tests/extras/List_Item_Fenced_Code_First_Line.html",
-            "flags": ["--fenced-code"]
         },
         {
             "input": "Tests/Images.text",

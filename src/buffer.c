@@ -113,13 +113,14 @@ hoedown_buffer_grow(hoedown_buffer *buf, size_t neosz)
 		neoasz += buf->unit;
 
 	buf->data = buf->data_realloc(buf->data, neoasz);
-	memset(&buf->data[buf->asize], 0, neoasz - buf->asize);
 	buf->asize = neoasz;
 }
 
 void
 hoedown_buffer_put(hoedown_buffer *buf, const uint8_t *data, size_t size)
 {
+	if (!size)
+		return;
 	assert(buf && buf->unit);
 
 	if (buf->size + size > buf->asize)
@@ -132,6 +133,8 @@ hoedown_buffer_put(hoedown_buffer *buf, const uint8_t *data, size_t size)
 void
 hoedown_buffer_puts(hoedown_buffer *buf, const char *str)
 {
+	if (!str)
+		return;
 	hoedown_buffer_put(buf, (const uint8_t *)str, strlen(str));
 }
 
@@ -305,5 +308,18 @@ void hoedown_buffer_put_utf8(hoedown_buffer *buf, unsigned int c) {
 	}
 	else {
 		HOEDOWN_BUFPUTSL(buf, "\xef\xbf\xbd");
+	}
+}
+
+void hoedown_buffer_replace_last(hoedown_buffer *buf, const char * str)
+{
+	int n = strlen(str);
+	if (n > buf->size)
+	{
+		return;
+	}
+	int i;
+	for (i = 1;i <= n;i++){
+		buf->data[buf->size-i] = str[n-i];
 	}
 }

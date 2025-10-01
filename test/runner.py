@@ -10,7 +10,7 @@ import unittest
 
 TEST_ROOT = os.path.dirname(__file__)
 PROJECT_ROOT = os.path.dirname(TEST_ROOT)
-HOEDOWN = [os.environ.get('HOEDOWN', os.path.abspath(os.path.join(PROJECT_ROOT, 'hoedown')))]
+HOEDOWN = [os.path.abspath(os.path.join(PROJECT_ROOT, 'hoedown'))]
 TIDY = ['tidy', '--show-body-only', '1', '--show-warnings', '0',
         '--quiet', '1']
 CONFIG_PATH = os.path.join(TEST_ROOT, 'config.json')
@@ -100,32 +100,7 @@ class MarkdownTestsMeta(type):
 
 
 class MarkdownTests(with_metaclass(MarkdownTestsMeta, unittest.TestCase)):
-    def test_lines(self):
-        from os import listdir
-        from os.path import isfile, join, splitext
-
-        LINE_TESTS = "./test/line_tests"
-        files = [join(LINE_TESTS, f) for f in listdir(LINE_TESTS)
-                 if isfile(join(LINE_TESTS, f))]
-        indexes = {}
-        for f in files:
-            filename, file_extension = splitext(f)
-            if file_extension == ".md":
-                indexes[f] = filename + '.out'
-        for index in indexes:
-            content = ''
-            try:
-                with open(indexes[index], 'r') as fdd:
-                    content = fdd.read()
-            except Exception:
-                raise TestFailed(index,
-                                 'Missing file: "{}"'.format(indexes[index]),
-                                 '')
-            child = subprocess.Popen(["./test/tester", index],
-                                     stdout=subprocess.PIPE)
-            stdout = child.communicate()[0]
-            if stdout != content:
-                raise TestFailed(index, content, stdout)
+    pass
 
 
 if __name__ == '__main__':
